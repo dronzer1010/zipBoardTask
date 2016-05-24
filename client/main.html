@@ -130,22 +130,41 @@
     <div class="topic-holder">
       <div class="primary-row"><span class="topic_username">{{createdBy}}</span></div>
       <div class="main-row"><p>"{{topic}}"</p></div>
-      <div class="end-row"><span class="addons">Likes <span class="badge">{{likes}}</span></span><span class="addons">Comments <span class="badge">5</span></span> <span class="addons-time">{{timeSince(createdAt)}} ago</span> </div>
+      <div class="end-row"><span class="addons">Likes <span class="badge">{{likes}}</span></span><span class="addons">Comments <span class="badge">{{comments.length}}</span></span> <span class="addons-time">{{timeSince(createdAt)}} ago</span> </div>
     </div>
   </div>
 </Template>
 <!--Topic Template-->
 
 <!--TemplateBrief Template-->
-<Template name="topicBrief">
+<Template name="singleTopic">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <div class="well-like">
-        {{#each title}}
-          {{topic}}
-        {{/each}}
+      <div class="topic-holder">
+        <div class="primary-row"><span class="topic_username">{{createdBy}}</span></div>
+        <div class="main-row"><p>"{{topic}}"</p></div>
+        <div class="end-row"><span class="addons">Likes <span class="badge">{{likes}}</span></span><span class="addons">Comments <span class="badge">{{comments.length}}</span></span> <span class="addons-time">{{timeSince(createdAt)}} ago</span> </div>
       </div>
+      <div class="comment-listholder">
+        {{#each comments}}
+          {{>commentBlock}}
+        {{/each}}
+
+        <form class="form comment-form">
+          <span class="head-topic">{{userName}}</span>
+          <input class="form-control" type="text" placeholder="Enter Comment" name="userComment"/>
+          <span class="addon-comment">Press "Enter" to comment</span>
+        </form>
+      </div>
+
     </div>
   </div>
 </Template>
 <!--TemplateBrief Template-->
+<Template name="commentBlock">
+  <div class="commentBlock">
+    <span class="head-topic">{{user}} : </span>
+    <span class="comment">"{{comment}}"</span>
+    <span class="addons-time">{{timeSince(time)}}</span>
+  </div>
+</Template>

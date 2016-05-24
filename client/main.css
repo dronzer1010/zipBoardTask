@@ -49,9 +49,7 @@
   color: rgba(0,0,0,0.4);
   font-weight: 600;
   border-radius: 3px;
-  position: absolute;
-  bottom:0px;
-  right:20px;
+float:right;
   font-size: 11px;
 }
 .addons-time:hover{
@@ -88,4 +86,23 @@
   margin-bottom: 15px;
   color:#555;
   font-weight: 400;
+}
+.comment-listholder{
+  background: #f7f7f7;
+  border:1px solid #eee;
+  padding: 10px;
+}
+.commentBlock{
+  padding: 10px 0px;
+  border-bottom:1px solid #eee;
+  margin: 5px 0px;
+}
+.comment-form{
+  margin: 15px 0px;
+}
+.addon-comment{
+  font-size: 9px;
+  color:#666;
+  font-weight: 600;
+
 }

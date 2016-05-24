@@ -39,13 +39,46 @@ Router.route('/dashboard' , {
 /*!dashboard Route*/
 
 Router.route('/topics/:_id' , {
-  template : 'topicBrief',
+  template : 'singleTopic',
   data : function(){
     var currentTopic = this.params._id;
-    console.log(Topics.find({_id : currentTopic}));
+
     return Topics.findOne({_id : currentTopic});
   },
-})
+});
+
+/*Creating Global helper*/
+
+Template.registerHelper('timeSince' , (date) =>{
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+      return interval + " years";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+      return interval + " months";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+      return interval + " days";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+      return interval + " hours";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+      return interval + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
+
+});
+
+/*!Global Helper */
+
 
 /*Basic Theme Events*/
 
@@ -86,7 +119,7 @@ Template.dashboard.events({
           createdBy : Meteor.user().username ,
           createdAt : new Date(),
           likes : 0,
-          comments :{}
+          comments :[]
         });
       }
     event.target.topicMain.value='';
@@ -142,35 +175,6 @@ Template.login.events({
 Template.topic.helpers({
 
 
-timeSince:  function (date) {
-
-      var seconds = Math.floor((new Date() - date) / 1000);
-
-      var interval = Math.floor(seconds / 31536000);
-
-      if (interval > 1) {
-          return interval + " years";
-      }
-      interval = Math.floor(seconds / 2592000);
-      if (interval > 1) {
-          return interval + " months";
-      }
-      interval = Math.floor(seconds / 86400);
-      if (interval > 1) {
-          return interval + " days";
-      }
-      interval = Math.floor(seconds / 3600);
-      if (interval > 1) {
-          return interval + " hours";
-      }
-      interval = Math.floor(seconds / 60);
-      if (interval > 1) {
-          return interval + " minutes";
-      }
-      return Math.floor(seconds) + " seconds";
-  },
-
-
 });
 Template.topic.events({
   'click' : function(event){
@@ -178,10 +182,32 @@ Template.topic.events({
   },
 });
 
+Template.singleTopic.helpers({
+ userName : function(){
+   return Meteor.user().username;
+ },
+});
 
-Template.topicBrief.helpers({
-  title: function(){
-    return Topics.find({_id : Template.instance().data._selectorId});
+
+Template.singleTopic.events({
+
+  'submit .comment-form' : function(event){
+    event.preventDefault();
+    var userCommentVar=event.target.userComment.value;
+    var currentUser= Meteor.user().username;
+    var commentTime=new Date();
+
+    var commentDefination ={
+      comment : userCommentVar ,
+      user : currentUser,
+      time : commentTime
+    };
+
+
+    var tempComments=Topics.findOne({_id : this._id}).comments;
+    tempComments.push(commentDefination);
+    Topics.update({_id:this._id} , {$set : { comments :tempComments}});
+    event.target.userComment.value='';
   },
 
 });
