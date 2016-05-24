@@ -1,0 +1,56 @@
+/* CSS declarations go here */
+.well-like{
+  border: 1px solid #ddd;
+  padding: 10px 5px;
+  background: #eaeaea;
+  margin: 10px 0px;
+  border-radius: 3px;
+}
+.topic-holder{
+  background: #fafafa;
+  border:1px solid #eee;
+  padding: 5px;
+  border-radius: 3px;
+  margin: 5px 0px;
+  cursor: pointer;
+}
+.heade-topic{
+  margin: 2px 0px;
+  font-weight:800;
+  color: #bbb;
+}
+.topic-control{
+  padding-left:3px;
+  height: 100px ;
+  resize: none;
+}
+.topic-form{
+  margin-bottom: 5px;
+}
+.topic_username{
+  font-weight: 700;
+}
+.addons{
+  padding: 5px 7px;
+
+  color: rgba(0,0,0,0.7);
+  border-radius: 3px;
+  margin-left: 5px;
+}
+.addons:hover{
+  background: #eaeaea;
+}
+.addons-time{
+  padding: 5px 7px;
+
+  color: rgba(0,0,0,0.4);
+  font-weight: 600;
+  border-radius: 3px;
+  position: absolute;
+  bottom:0px;
+  right:20px;
+  font-size: 11px;
+}
+.addons-time:hover{
+  background: #eaeaea;
+}
